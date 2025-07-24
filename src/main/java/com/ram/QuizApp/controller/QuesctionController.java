@@ -3,6 +3,7 @@ package com.ram.QuizApp.controller;
 import com.ram.QuizApp.model.Quesction;
 import com.ram.QuizApp.service.QuesctionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,17 +16,17 @@ public class QuesctionController {
     private QuesctionService quesctionService;
 
     @GetMapping("allQuestions")
-    public List<Quesction> getAllQuestions(){
+    public ResponseEntity<List<Quesction>> getAllQuestions(){
         return quesctionService.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
-    public List<Quesction> getQuesctionCategory(@PathVariable String category){
+    public ResponseEntity<List<Quesction>> getQuesctionCategory(@PathVariable String category){
         return quesctionService.getQuesctionCategory(category);
     }
 
     @PostMapping("add")
-    public void addQuesction(@RequestBody Quesction quesction){
-        quesctionService.addQuesction(quesction);
+    public ResponseEntity<String> addQuesction(@RequestBody Quesction quesction){
+        return quesctionService.addQuesction(quesction);
     }
 }
