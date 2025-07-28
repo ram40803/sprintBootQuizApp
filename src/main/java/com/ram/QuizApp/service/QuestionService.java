@@ -1,7 +1,8 @@
 package com.ram.QuizApp.service;
 
-import com.ram.QuizApp.model.Quesction;
-import com.ram.QuizApp.repo.QuesctionRepo;
+import com.ram.QuizApp.model.Question;
+import com.ram.QuizApp.model.Response;
+import com.ram.QuizApp.repo.QuestionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,33 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuesctionService {
+public class QuestionService {
 
     @Autowired
-    private QuesctionRepo repo;
+    private QuestionRepo questionRe;
 
-    public ResponseEntity<List<Quesction>> getAllQuestions() {
+    public ResponseEntity<List<Question>> getAllQuestions(){
         try{
-            return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
-        }
-        catch(Exception e){
+            return new ResponseEntity<>(questionRe.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }
-
     }
 
-    public ResponseEntity<List<Quesction>> getQuesctionCategory(String category) {
+    public ResponseEntity<List<Question>> getQuesctionCategory(String category) {
         try{
-            return new ResponseEntity<>(repo.findByCategory(category), HttpStatus.OK);
+            return new ResponseEntity<>(questionRe.findByCategory(category), HttpStatus.OK);
         }
         catch(Exception e) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    public ResponseEntity<String> addQuesction(Quesction quesction) {
+    public ResponseEntity<String> addQuestion(Question question) {
         try{
-            repo.save(quesction);
+            questionRe.save(question);
             return new ResponseEntity<>("success", HttpStatus.CREATED);
         }
         catch(Exception e) {
